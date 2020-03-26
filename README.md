@@ -1,9 +1,10 @@
-[![](https://github.com/ansible-roles-matsumura/cowsay/workflows/Build/badge.svg)](https://github.com/ansible-roles-matsumura/cowsay/actions)
+[![](https://github.com/ansible-roles-matsumura/cowsay/workflows/Build/badge.svg)](https://github.com/ansible-roles-matsumura/cowsay/actions?query=workflow%3ABuild)
+[![](https://github.com/ansible-roles-matsumura/cowsay/workflows/Lint/badge.svg)](https://github.com/ansible-roles-matsumura/cowsay/actions?query=workflow%3ALint)
 
 Role Description
 =========
 
-Installs cowsay for CentOS7.
+Installs [Cowsay](https://github.com/tnalpgge/rank-amateur-cowsay) for CentOS7.
 
 Requirements
 ------------
