@@ -14,7 +14,7 @@
       register: OS_VERSION
       changed_when: False
 
-    - name: Show ASCIIQuarium installed
+    - name: Show cowsay is installed
       debug:
         var: COWSAY_INSTALLED
 
