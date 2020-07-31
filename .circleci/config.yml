@@ -12,13 +12,16 @@ jobs:
       - checkout:
           path: cowsay
       - run:
-          name: "Show avairale python version"
+          name: "Show available python version"
           command: pyenv install --list
       - run:
           name: Upate pyenv
           command: |
             git clone https://github.com/pyenv/pyenv-update.git $(pyenv root)/plugins/pyenv-update
             pyenv update
+      - run:
+          name: "Show available python version"
+          command: pyenv install --list
       - run:
           name: Install Python
           command: pyenv install << parameters.python-version>>
@@ -51,5 +54,5 @@ workflows:
       - molecule:
           matrix:
             parameters:
-              python-version: ['3.6.11', '3.7.8', '3.8.3']
+              python-version: ['3.6.11', '3.7.8', '3.8.5']
               distro: ['centos7', 'centos8']
