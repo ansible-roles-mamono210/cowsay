@@ -29,7 +29,7 @@ Example Playbook
 - hosts: all
   become: true
   roles:
-    - geerlingguy.repo-epel
+    - robertdebock.epel
     - cowsay
 ```
 
