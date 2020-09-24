@@ -24,7 +24,8 @@ rules:
   key-ordering: disable
   line-length:
     level: error
-    max: 98
+    ignore: |
+      .circleci/config.yml
   new-line-at-end-of-file: enable
   new-lines: enable
   octal-values: disable

@@ -1,8 +1,0 @@
----
-roles:
-  - name: robertdebock.epel
-  - name: cowsay
-    src: https://github.com/ansible-roles-matsumura/cowsay.git
-
-collections:
-  - name: community.general
