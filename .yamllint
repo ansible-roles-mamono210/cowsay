@@ -27,10 +27,7 @@ rules:
   indentation: enable
   key-duplicates: enable
   key-ordering: disable
-  line-length:
-    level: error
-    ignore: |
-      .circleci/config.yml
+  line-length: disable
   new-line-at-end-of-file: enable
   new-lines: enable
   octal-values: disable
