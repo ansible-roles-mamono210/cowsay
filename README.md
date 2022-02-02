@@ -3,7 +3,7 @@
 Role Description
 =========
 
-Installs [Cowsay](https://github.com/tnalpgge/rank-amateur-cowsay) for CentOS7/CentOS8.
+Installs [Cowsay](https://github.com/tnalpgge/rank-amateur-cowsay) for CentOS7/Stream8.
 
 Requirements
 ------------
