@@ -1,5 +1,4 @@
 [![CircleCI](https://circleci.com/gh/ansible-roles-mamono210/cowsay/tree/main.svg?style=svg)](https://circleci.com/gh/ansible-roles-mamono210/cowsay/tree/main)
-[![](https://github.com/ansible-roles-matsumura/cowsay/workflows/build/badge.svg)](https://github.com/ansible-roles-matsumura/cowsay/actions?query=workflow%3Abuild)
 
 Role Description
 =========
