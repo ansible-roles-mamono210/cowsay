@@ -8,7 +8,7 @@ Installs [Cowsay](https://github.com/tnalpgge/rank-amateur-cowsay) for CentOS7/S
 Requirements
 ------------
 
-EPEL installed before running this role.
+[EPEL](https://docs.fedoraproject.org/en-US/epel/) installed before running this role.
 
 Role Variables
 --------------
@@ -28,7 +28,7 @@ Example Playbook
 - hosts: all
   become: true
   roles:
-    - robertdebock.epel
+    - geerlingguy.epel
     - cowsay
 ```
 
