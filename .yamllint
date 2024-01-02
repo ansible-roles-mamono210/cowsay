@@ -1,16 +1,17 @@
 ---
-extends: default
-
-ignore: |
-  README.md
-
 yaml-files:
   - '*.yaml'
   - '*.yml'
   - '.yamllint'
 
+extends: default
+
+ignore: |
+  README.md
+
 rules:
-  braces: enable
+  braces:
+    level: error
   brackets: enable
   colons: enable
   commas: enable
@@ -27,7 +28,11 @@ rules:
   indentation: enable
   key-duplicates: enable
   key-ordering: disable
-  line-length: disable
+  line-length:
+    level: error
+    ignore: |
+      .circleci/config.yml
+      roles/database/tasks/main.yml
   new-line-at-end-of-file: enable
   new-lines: enable
   octal-values: disable

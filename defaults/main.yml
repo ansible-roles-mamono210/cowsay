@@ -1,1 +1,12 @@
 ---
+# Archived media file name
+redmine_archived_media_file: files.tar.gz
+
+# Backup data directory
+redmine_backup_data_dir: /tmp/redmine-backup
+
+# Redimine directory
+redmine_dir: /var/lib/redmine
+
+# Redmine media file directory
+redmine_file_dir: /var/lib/redmine/files

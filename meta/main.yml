@@ -3,13 +3,12 @@ dependencies: []
 galaxy_info:
   author: mamono210
   company: no name
-  description: Cowsay installation for Linux.
+  description: Restore Redmine media files
   galaxy_tags: []
   license: "license (BSD, MIT)"
-  min_ansible_version: 8.0.0
-  role_name: cowsay
+  min_ansible_version: 8.1.0
+  role_name: redmine_restore_files
   platforms:
     - name: EL
       release:
         - 8
-        - 9

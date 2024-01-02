@@ -1,8 +1,16 @@
 ---
 version: 2.1
 
+executors:
+  trailing-whitespace:
+    docker:
+      - image: ghcr.io/docker-images-mamono210/circleci-executors/trailing-whitespace:latest
+    resource_class: small
+
 orbs:
   ansible-lint: orbss/ansible-lint@0.0.3
+  aws-cli: circleci/aws-cli@3.1.1
+  molecule-ec2: orbss/molecule-ec2@0.0.9
   yamllint: orbss/yamllint@0.0.4
 
 jobs:
@@ -10,66 +18,56 @@ jobs:
     executor: ansible-lint/default
     steps:
       - checkout
-      - ansible-lint/execute:
-          molecule-role-test: true
-  molecule:
-    machine:
-      image: ubuntu-2004:202111-02
-    resource_class: medium
+      - ansible-lint/execute
+  molecule-ec2:
+    executor: molecule-ec2/default
     parameters:
-      checkout-path:
+      ansible-user:
         type: string
-      molecule-executor-image:
+      aws-ami-name:
         type: string
-      molecule-test-image:
+      aws-ami-owner-id:
         type: string
-    steps:
-      - checkout:
-          path: << parameters.checkout-path >>
-      - run:
-          name: Test with Molecule
-          command: |
-            sudo chmod 666 /var/run/docker.sock
-
-            cd << parameters.checkout-path >>
-
-            docker run --rm -it \
-            -e MOLECULE_IMAGE=<< parameters.molecule-test-image >> \
-            -v "$(pwd)":/tmp/$(basename "${PWD}"):ro \
-            -v /usr/bin/docker:/usr/bin/docker \
-            -v /var/run/docker.sock:/var/run/docker.sock \
-            -w /tmp/$(basename "${PWD}") \
-            << parameters.molecule-executor-image >> \
-            molecule test
-      - run:
-          name: Show Ansible version
-          command: |
-            docker run --rm -it \
-            << parameters.molecule-executor-image >> \
-            pip list | grep ansible \
-            | GREP_COLORS='mt=01;34' egrep --color=always '[[:digit:]]' \
-            | GREP_COLORS='mt=01;34' egrep --color=always '\.' \
-            | GREP_COLORS='mt=01;33' egrep --color=always 'ansible.* '
-      - run:
-          name: Show Molecule version
-          command: |
-            docker run --rm -it \
-            << parameters.molecule-executor-image >> \
-            molecule --version
-  trailing-whitespace:
-    docker:
-      - image: ghcr.io/docker-images-mamono210/circleci-executors/trailing-whitespace:latest
-    resource_class: small
+      aws-instance-type:
+        type: string
+      aws-resource-name:
+        type: string
+      aws-vpc-subnet-id:
+        type: string
+      circleci-timeout:
+        type: string
+      molecule-scenario-name:
+        type: string
+    working_directory: ~/cowsay
     steps:
       - checkout
-      - run:
-          name: Execute trailing-whitespace
-          command: trailing-whitespace
+      - aws-cli/setup:
+          profile-name: default
+          role-arn: ${AWS_ROLE_ARN}
+          role-session-name: << parameters.aws-resource-name >>
+          session-duration: '3600'
+      - molecule-ec2/execute:
+          ansible-user: << parameters.ansible-user >>
+          aws-ami-name: << parameters.aws-ami-name >>
+          aws-ami-owner-id: << parameters.aws-ami-owner-id >>
+          aws-instance-type: << parameters.aws-instance-type >>
+          aws-resource-name: << parameters.aws-resource-name >>
+          aws-vpc-subnet-id: << parameters.aws-vpc-subnet-id >>
+          circleci-timeout: << parameters.circleci-timeout >>
+          molecule-scenario-name: << parameters.molecule-scenario-name >>
   yamllint:
     executor: yamllint/default
     steps:
       - checkout
       - yamllint/execute
+  trailing-whitespace:
+    executor: trailing-whitespace
+    steps:
+      - checkout
+      - run:
+          name: Execute trailing-whitespace
+          command: trailing-whitespace
+
 workflows:
   version: 2.1
   build:
@@ -81,15 +79,15 @@ workflows:
       - ansible-lint:
           requires:
             - yamllint
-      - molecule:
-          matrix:
-            parameters:
-              checkout-path:
-                - 'cowsay'
-              molecule-executor-image:
-                - 'ghcr.io/docker-images-mamono210/circleci-executors/molecule-docker:latest'
-              molecule-test-image:
-                - 'ghcr.io/docker-images-mamono210/ansible-test/centos-stream8:latest'
-                - 'ghcr.io/docker-images-mamono210/ansible-test/centos-stream9:latest'
+      - molecule-ec2:
+          ansible-user: centos
+          aws-ami-name: 'redmica_ansible-test-image_centos-stream8-1*'
+          aws-ami-owner-id: '808683561341'
+          aws-instance-type: 't2.medium'
+          aws-resource-name: 'ansible_roles_redmica_install'
+          aws-vpc-subnet-id: 'subnet-022a704b3061b8b39'
+          circleci-timeout: '15m'
+          molecule-scenario-name: 'default'
+          context: aws-oidc
           requires:
             - ansible-lint
