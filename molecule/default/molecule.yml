@@ -31,21 +31,10 @@ provisioner:
       callbacks_enabled: ansible.posix.profile_tasks
   connection_options:
     ansible_user: centos
-    redmine_file_dir: '/var/lib/redmine/files'
-    remote_directory: '/tmp/redmine-backup'
-    remote_file_name: 'files.tar.gz'
-    s3_bucket: 'mamono210'
-    s3_object_name: 'circleci-gce/redmine/stop/files.tar.gz'
   log: true
 verifier:
   name: ansible
 scenario:
-  create_sequence:
-    - dependency
-    - cleanup
-    - destroy
-    - syntax
-    - create
   test_sequence:
     - dependency
     - cleanup

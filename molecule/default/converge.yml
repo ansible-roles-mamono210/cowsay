@@ -6,4 +6,4 @@
   tasks:
     - name: Execute
       ansible.builtin.include_role:
-        name: redmine_restore_files
+        name: cowsay
