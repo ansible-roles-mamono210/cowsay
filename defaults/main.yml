@@ -7,5 +7,6 @@ redmine_db_user: redmine
 redmine_dir: /var/lib/redmine
 redmine_dir_group: apache
 redmine_dir_owner: apache
+redmine_font_path: /usr/share/fonts/truetype/takao-gothic/TakaoPGothic.ttf
 redmica_git_url: https://github.com/redmica/redmica.git
 redmica_git_version: master
