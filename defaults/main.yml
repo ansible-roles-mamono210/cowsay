@@ -1,12 +1,6 @@
 ---
-# Archived media file name
-redmine_archived_media_file: files.tar.gz
-
-# Backup data directory
-redmine_backup_data_dir: /tmp/redmine-backup
-
-# Redimine directory
 redmine_dir: /var/lib/redmine
-
-# Redmine media file directory
-redmine_file_dir: /var/lib/redmine/files
+redmine_dir_group: apache
+redmine_dir_owner: apache
+redmica_git_url: https://github.com/redmica/redmica.git
+redmica_git_version: master
