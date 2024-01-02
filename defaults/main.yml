@@ -1,4 +1,9 @@
 ---
+redmine_db_host: localhost
+redmine_db_name: redmine
+redmine_db_password: password
+redmine_db_port: 5432
+redmine_db_user: redmine
 redmine_dir: /var/lib/redmine
 redmine_dir_group: apache
 redmine_dir_owner: apache
