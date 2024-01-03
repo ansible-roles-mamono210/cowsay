@@ -117,8 +117,7 @@
 
     - name: Print database check result
       ansible.builtin.debug:
-        msg: "Database 'redmine' exists."
-      when: db_check.changed == false
+        var: db_check
 
     - name: Remove privilege escalation from user 'postgres'
       ansible.builtin.file:
