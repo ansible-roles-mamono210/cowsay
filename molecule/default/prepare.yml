@@ -24,6 +24,8 @@
       ansible.builtin.pip:
         name: psycopg2
         state: present
+      environment:
+        PATH: "/usr/pgsql-14/bin:{{ ansible_env.PATH }}"
 
     - name: Delete working directory
       ansible.builtin.file:
