@@ -7,6 +7,20 @@
     work_dir: /tmp/redmine-install-dir
 
   tasks:
+    - name: Initialize PostgreSQL
+      ansible.builtin.command:
+        cmd: postgresql-14-setup initdb
+      args:
+        - "PGSETUP_INITDB_OPTIONS='--encoding=UTF-8 --no-locale'"
+      environment:
+        PATH: "/usr/pgsql-14/bin:{{ ansible_env.PATH }}"
+
+    - name: Start PostgreSQL server
+      ansible.builtin.systemd_service:
+        name: postgresql-14
+        state: started
+        enabled: true
+
     - name: Install requirements
       ansible.builtin.package:
         name: "{{ item }}"
