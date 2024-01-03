@@ -1,4 +1,10 @@
 ---
+- name: Restart postgresql.service
+  ansible.builtin.service:
+    name: postgresql-14
+    state: restarted
+    enabled: yes
+
 - name: Install Development Tools with yum
   ansible.builtin.yum:
     name: '@Development Tools'
