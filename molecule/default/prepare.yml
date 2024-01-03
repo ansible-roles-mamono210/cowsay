@@ -87,12 +87,14 @@
           "{{ ansible_env.PATH }} "
 
     - name: Create PostgreSQL user
-      become: True
+      become: true
       become_user: postgres
       become_method: ansible.builtin.sudo
       community.general.postgresql_user:
         name: '{{ redmine_user_user }}'
         password: '{{ redmine_db_password }}'
+      environment:
+        PATH: "/usr/pgsql-14/bin:{{ ansible_env.PATH }}"
       no_log: true
 
     - name: Create database
@@ -105,6 +107,8 @@
         lc_collate: ja_JP.UTF-8
         lc_ctype: ja_JP.UTF-8
         template: template0
+      environment:
+        PATH: "/usr/pgsql-14/bin:{{ ansible_env.PATH }}"
 
     - name: Remove privilege escalation from user 'postgres'
       ansible.builtin.file:
