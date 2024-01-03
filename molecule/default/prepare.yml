@@ -5,6 +5,10 @@
 
   roles:
     - role: mamono210.postgresql
+      vars:
+        postgresql_packages:
+          - postgresql14-devel
+          - postgresql14-server
 
   tasks:
     - name: Install requirements
