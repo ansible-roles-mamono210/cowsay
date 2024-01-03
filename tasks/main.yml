@@ -61,6 +61,15 @@
   register:
     result_database_yml
 
+- name: Read database.yml
+  ansible.builtin.slurp:
+    src: "{{ redmine_dir }}/config/database.yml"
+  register: database_yml_content
+
+- name: Show database.yml content
+  ansible.builtin.debug:
+    msg: "{{ database_ymln_content['content'] | b64decode }}"
+
 - name: Create configuration.yml under Redmine installed directory
   ansible.builtin.template:
     src: configuration.yml
