@@ -66,7 +66,7 @@
 
     - name: Restart postgresql.service
       ansible.builtin.service:
-        name: postgresql
+        name: postgresql-14
         state: restarted
         enabled: yes
 
@@ -89,12 +89,12 @@
       become_user: postgres
       become_method: ansible.builtin.sudo
       community.general.postgresql_user:
-        name: redmine
-        password: '{{ db_password }}'
-      no_log: True
+        name: '{{ redmine_user_user }}'
+        password: '{{ redmine_db_password }}'
+      no_log: true
 
     - name: Create database
-      become: True
+      become: true
       become_user: postgres
       become_method: ansible.builtin.sudo
       community.general.postgresql_db:
