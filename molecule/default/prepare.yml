@@ -3,6 +3,8 @@
   hosts: all
   become: true
   vars:
+    redmine_db_password: redmine
+    redmine_db_user: redmine
     pg_hba_conf_path: /var/lib/pgsql/14/data/pg_hba.conf
     work_dir: /tmp/redmine-install-dir
 
