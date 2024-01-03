@@ -7,6 +7,7 @@
     - role: mamono210.postgresql
       vars:
         postgresql_packages:
+          - perl-IPC-Run
           - postgresql14-devel
           - postgresql14-server
 
