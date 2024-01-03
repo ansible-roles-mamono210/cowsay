@@ -73,7 +73,7 @@
     state: present
     chdir: '{{ redmine_dir }}'
   environment:
-    PATH: "/usr/local/bin:{{ ansible_env.PATH }}"
+    PATH: "/usr/local/bin:/usr/pgsql-14/bin:{{ ansible_env.PATH }}"
 
 - name: Create secret token
   ansible.builtin.command: bundle exec rake generate_secret_token
@@ -82,7 +82,7 @@
   register: redmine_bundle_token
   changed_when: redmine_bundle_token.stdout | length > 0
   environment:
-    PATH: "/usr/local/bin:{{ ansible_env.PATH }}"
+    PATH: "/usr/local/bin:/usr/pgsql-14/bin:{{ ansible_env.PATH }}"
     RAILS_ENV: production
 
 - name: Execute database migration
@@ -92,7 +92,7 @@
   register: redmine_bundle_migrate
   changed_when: redmine_bundle_migrate.stdout | length > 0
   environment:
-    PATH: "/usr/local/bin:{{ ansible_env.PATH }}"
+    PATH: "/usr/local/bin:/usr/pgsql-14/bin:{{ ansible_env.PATH }}"
     RAILS_ENV: production
 
 - name: Set owner and group of Redmine installed directory
