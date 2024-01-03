@@ -9,11 +9,11 @@
   tasks:
     - name: Create a new PostgreSQL database cluster(CentOS8)
       ansible.builtin.shell:
-        PGSETUP_INITDB_OPTIONS="--encoding=UTF-8 --no-locale" postgresql-14-setup --initdb  # noqa command-instead-of-shell
+        cmd: "/usr/pgsql-14/bin/postgresql-14-setup initdb" # noqa command-instead-of-shell
       register: initdb_output
       changed_when: "'Initializing database ... OK' in initdb_output.stdout"
       environment:
-        PATH: "/usr/pgsql-14/bin:{{ ansible_env.PATH }}"
+        PGSETUP_INITDB_OPTIONS: "--encoding=UTF-8 --no-locale"
 
     - name: Start PostgreSQL server
       ansible.builtin.systemd_service:
