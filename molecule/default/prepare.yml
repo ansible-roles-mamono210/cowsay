@@ -43,29 +43,6 @@
       environment:
         PATH: "/usr/pgsql-14/bin:{{ ansible_env.PATH }}"
 
-    - name: Delete working directory
-      ansible.builtin.file:
-        path: '{{ work_dir }}'
-        state: absent
-
-    - name: Create working directory
-      ansible.builtin.file:
-        path: '{{ work_dir }}'
-        state: directory
-        mode: 0755
-
-    - name: Creare patch for adding host-based authentication into pg_hba.conf
-      ansible.builtin.template:
-        src: pg_hba_conf.patch
-        dest: "{{ work_dir }}/pg_hba_conf.patch"
-        mode: 0755
-
-    - name: Add host-based authentication settings into pg_hba.conf
-      ansible.posix.patch:
-        src: "{{ work_dir }}/pg_hba_conf.patch"
-        dest: '{{ pg_hba_conf_path }}'
-        remote_src: yes
-
     - name: Restart postgresql.service
       ansible.builtin.service:
         name: postgresql-14
