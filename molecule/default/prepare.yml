@@ -7,11 +7,11 @@
     work_dir: /tmp/redmine-install-dir
 
   tasks:
-    - name: Initialize PostgreSQL
-      ansible.builtin.command:
-        cmd: postgresql-14-setup initdb
-      args:
-        - "PGSETUP_INITDB_OPTIONS='--encoding=UTF-8 --no-locale'"
+    - name: Create a new PostgreSQL database cluster(CentOS8)
+      ansible.builtin.shell:
+        PGSETUP_INITDB_OPTIONS="--encoding=UTF-8 --no-locale" postgresql-14-setup --initdb  # noqa command-instead-of-shell
+      changed_when: false
+      failed_when: false
       environment:
         PATH: "/usr/pgsql-14/bin:{{ ansible_env.PATH }}"
 
@@ -51,14 +51,6 @@
         path: '{{ work_dir }}'
         state: directory
         mode: 0755
-
-    - name: Create a new PostgreSQL database cluster(CentOS8)
-      ansible.builtin.shell:
-        PGSETUP_INITDB_OPTIONS="--encoding=UTF-8 --no-locale" postgresql-setup --initdb  # noqa command-instead-of-shell
-      changed_when: false
-      failed_when: false
-      environment:
-        PATH: "{{ ansible_env.PATH }} "
 
     - name: Creare patch for adding host-based authentication into pg_hba.conf
       ansible.builtin.template:
