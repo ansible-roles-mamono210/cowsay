@@ -68,6 +68,15 @@
     force: no
     mode: 0755
 
+- name: Read configuration.yml
+  ansible.builtin.slurp:
+    src: "{{ redmine_dir }}/config/configuration.yml"
+  register: configuration_content
+
+- name: Show configuration.yml content
+  ansible.builtin.debug:
+    msg: "{{ configuration_content['content'] | b64decode }}"
+
 - name: Install Redmine gem packages
   community.general.bundler:
     state: present
@@ -100,4 +109,4 @@
     path: '{{ redmine_dir }}'
     owner: '{{ redmine_dir_owner }}'
     group: '{{ redmine_dir_group }}'
-    recurse: yess
+    recurse: yes
