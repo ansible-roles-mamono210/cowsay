@@ -68,7 +68,7 @@
 
 - name: Show database.yml content
   ansible.builtin.debug:
-    msg: "{{ database_ymln_content['content'] | b64decode }}"
+    msg: "{{ database_yml_content['content'] | b64decode }}"
 
 - name: Create configuration.yml under Redmine installed directory
   ansible.builtin.template:
