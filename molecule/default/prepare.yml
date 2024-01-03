@@ -91,11 +91,11 @@
       become_user: postgres
       become_method: ansible.builtin.sudo
       community.general.postgresql_user:
-        name: '{{ redmine_user_user }}'
+        name: '{{ redmine_db_user }}'
         password: '{{ redmine_db_password }}'
       environment:
         PATH: "/usr/pgsql-14/bin:{{ ansible_env.PATH }}"
-      no_log: true
+      no_log: false
 
     - name: Create database
       become: true
