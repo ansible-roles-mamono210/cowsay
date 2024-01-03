@@ -103,6 +103,18 @@
     PATH: "/usr/local/bin:/usr/pgsql-14/bin:{{ ansible_env.PATH }}"
     RAILS_ENV: production
 
+- name: Check if Redmine database exists
+  community.general.postgresql_db:
+    name: redmine
+    state: present
+  register: db_check
+  environment:
+    PATH: "/usr/local/bin:/usr/pgsql-14/bin:{{ ansible_env.PATH }}"
+
+- name: Print database check result
+  ansible.builtin.debug:
+    var: db_check
+
 - name: Execute database migration
   ansible.builtin.command: bundle exec rake db:migrate
   args:

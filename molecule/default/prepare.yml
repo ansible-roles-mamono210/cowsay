@@ -109,16 +109,6 @@
       environment:
         PATH: "/usr/pgsql-14/bin:{{ ansible_env.PATH }}"
 
-    - name: Check if Redmine database exists
-      community.general.postgresql_db:
-        name: redmine
-        state: present
-      register: db_check
-
-    - name: Print database check result
-      ansible.builtin.debug:
-        var: db_check
-
     - name: Remove privilege escalation from user 'postgres'
       ansible.builtin.file:
         path: /etc/sudoers.d/postgres
