@@ -11,6 +11,7 @@
   roles:
     - role: mamono210.user
       vars:
+        linux_user: centos
         user_profiles:
           - name: centos
             authorized_keys:
