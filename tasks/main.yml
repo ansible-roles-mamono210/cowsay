@@ -142,6 +142,7 @@
 
 - name: Register results of showing configuration snippet command to variable
   ansible.builtin.command: passenger-install-apache2-module --snippet
+  changed_when: false
   environment:
     PATH: "/usr/local/bin:{{ ansible_env.PATH }}"
   register: passenger_snippet_vars
