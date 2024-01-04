@@ -85,9 +85,14 @@
         owner: postgres
         group: postgres
         mode: '0600'
-      notify: restart postgresql
 
     - name: Remove privilege escalation from user 'postgres'
       ansible.builtin.file:
         path: /etc/sudoers.d/postgres
         state: absent
+
+    - name: Restart postgresql.service
+      ansible.builtin.service:
+        name: postgresql-14
+        state: restarted
+        enabled: yes
