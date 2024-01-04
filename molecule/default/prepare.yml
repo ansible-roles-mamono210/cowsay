@@ -14,20 +14,6 @@
         user: centos
         key: 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCxmSm2oUf9/9bYd/Mn847pkOQyvN9ZIwWk8gEEe8pOF/Zi+RAetq2kO3E/nJNlgfVYRR+KbIl9ViqmxHoJmR4nxAO04ZG79Qdg+AwDLNBXeFInnI2nCCrWqGRQPaesBYRnP1vws318WbovK0pJduv8mgb/QQ/uk9jNHAewtsz7GCaTRdcClT9v+w8VTNg25E/sWjx7Y7prgRTvil15wz5sspeyEorotzu4ZEj7JeycIyXEcil8d0hxAT59MHR/b4ej+uOCAOG9yeMiIdcAm6m0Uj/PDcc6gKZxZArHBSux9mSADW3tvkstXqwjWP7bc9ImtgQVDzJ1A4U/AnIKvWBb+jnPQxeVjxU3nOB2gyOPQqAfScNeuAgY+IL03VvbeWa34t2hDVpEq1434uxn48Kabk3QfGVFhY2tCH9JU3ibOI9GUFB/qbo+agfRPbGAqASoerPU1BFPV/zjTUr5S2aU6bgqFc8NQT1SnKGD2RvNtqSoYfTE5VkloynWDQFCClk= tomonori@matsumuratomonorinoMacBook-Pro.local'
 
-    - name: Create a new PostgreSQL database cluster(CentOS8)
-      ansible.builtin.shell:
-        cmd: "/usr/pgsql-14/bin/postgresql-14-setup initdb"  # noqa command-instead-of-shell
-      register: initdb_output
-      changed_when: "'Initializing database ... OK' in initdb_output.stdout"
-      environment:
-        PGSETUP_INITDB_OPTIONS: "--encoding=UTF-8 --no-locale"
-
-    - name: Start PostgreSQL server
-      ansible.builtin.systemd_service:
-        name: postgresql-14
-        state: started
-        enabled: true
-
     - name: Install requirements
       ansible.builtin.package:
         name: "{{ item }}"
