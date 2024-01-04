@@ -5,3 +5,5 @@ roles:
     version: '240103'
   - name: mamono210.molecule_ec2_driver
     src: https://github.com/ansible-roles-mamono210/molecule_ec2_driver.git
+  - name: mamono210.user
+    src: https://github.com/ansible-roles-mamono210/user.git
