@@ -1,4 +1,5 @@
 ---
+httpd_conf_confd: redmine.conf
 redmine_db_host: localhost
 redmine_db_name: redmine
 redmine_db_password: password

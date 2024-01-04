@@ -77,6 +77,15 @@
       environment:
         PATH: "/usr/pgsql-14/bin:{{ ansible_env.PATH }}"
 
+    - name: Update pg_hba.conf file
+      ansible.builtin.template:
+        src: templates/pg_hba.conf.j2
+        dest: /var/lib/pgsql/14/data/pg_hba.conf
+        owner: postgres
+        group: postgres
+        mode: '0600'
+      notify: restart postgresql
+
     - name: Remove privilege escalation from user 'postgres'
       ansible.builtin.file:
         path: /etc/sudoers.d/postgres
