@@ -6,12 +6,13 @@ driver:
 platforms:
   - name: instance
     image: ${MOLECULE_IMAGE}
-    pre_build_image: True
+    pre_build_image: true
 provisioner:
   name: ansible
   config_options:
     defaults:
       callbacks_enabled: ansible.posix.profile_tasks
+      roles_path: "$HOME/.ansible/roles/:/tmp"
 verifier:
   name: ansible
 scenario:
