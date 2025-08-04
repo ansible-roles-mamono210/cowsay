@@ -32,6 +32,18 @@ Example Playbook
     - cowsay
 ```
 
+Testing
+-------
+
+The role includes a Molecule scenario and linting configuration. You can
+run the checks locally with:
+
+```bash
+yamllint .
+ansible-lint
+molecule test
+```
+
 License
 -------
 
